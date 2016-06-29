@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+  	<title>Mojo Watch Face 1.0</title>
+  </head>
+  <body>
+<h1>Mojo WatchFace 설정</h1>
+<!--
+    <select id='stateCombo' onchange='stateComboChange();'>
+    </select>
+ 
+    <select id='cityCombo' onchange='cityComboChange();'>
+    </select>
+ 
+     <select id='dongCombo' onchange='dongComboChange();'>
+    </select>
+ 
+<div id='tgt'></div>
+<div id='weather'></div>
+<script src="http://codesafe.github.io/script.js"></script>
+-->
+
+<p><input id="use24" required="required" type="checkbox" value="false" />&nbsp;24 시간제 사용</p>
+<p><input id="usedust" required="required" type="checkbox" value="false" />&nbsp;미세먼지 정보 사용</p>
+<p><input id="useposition" required="required" type="checkbox" onclick="onUseposition(this)" />&nbsp;위치 기반 날씨 사용</p>
+<p><input id="viberate" required="required" type="checkbox" />&nbsp;날씨 업데이트 시 진동</p>
+<p>날씨 업데이트 주기</p>
+<p>
+	<select id='updatetime' style="width: 180px;">
+	<option value="1">1시간</option>
+	<option value="2">2시간</option>
+	<option value="3">3시간</option>
+	<option value="6">6시간</option>
+	</select>
+</p>
+<p>&nbsp;</p>
+
+
+<form id="form1">
+	<p>
+		<p>지역 이름으로 날씨 얻기</p>
+		<p>검색결과가 없으면 위치기반으로 작동</p>
+		<input id="address" type="textbox" value="">
+		<input id="addressbtn" type="button" value="지역 검색" onclick="codeAddress()" >
+	</p>	
+	<p>	
+		<input id="fulladdress" type="text" value="" style="width: 260px;" readonly>
+	<!--	
+		<input id="lat" type="text" value="">
+		<input id="lng" type="text" value="">
+	-->	
+	</p>
+	
+</form>
+
+<p>
+	<button id="save_button" style="width: 160px;height: 30px;" >저장</button>
+</p>
+<!--
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>	
+-->	
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js"></script>	
+    <script>
+	
+		var lat = 0;
+		var lng = 0;
+		
+    	// 주소로 lat, lng 구하기
+		function codeAddress() {
+			var geocoder = new google.maps.Geocoder();
+			var address = document.getElementById("address").value;
+			if( address == '' ) return;
+
+			geocoder.geocode( { 'address': address}, function(results, status) {
+			  if (status == google.maps.GeocoderStatus.OK) {
+				document.getElementById("fulladdress").value = results[0].formatted_address;
+				
+				lat = results[0].geometry.location.lat();
+				lng = results[0].geometry.location.lng();
+				//alert(results[0].geometry.location.lat());
+				//alert(results[0].geometry.location.lng());
+				//document.getElementById("lat").value = results[0].geometry.location.lat();
+				//document.getElementById("lng").value = results[0].geometry.location.lng();
+			  } 
+			  else {
+				alert("Geocode was not successful for the following reason: " + status);
+			  }
+			});
+		}
+
+		function visibleselectzone(vis) {
+			var f = document.getElementById("form1");
+			f.style.visibility = vis == true ? "visible" : "hidden";
+/*
+			// hide select zone
+			var add = document.getElementById("address");
+			var addbtn = document.getElementById("addressbtn");
+			var fulladdress = document.getElementById("fulladdress");
+			add.style.visibility = vis == true ? "visible" : "hidden";
+			addbtn.style.visibility = vis == true ? "visible" : "hidden";
+			fulladdress.style.visibility = vis == true ? "visible" : "hidden";
+			
+			//var lat = document.getElementById("lat");
+			//var lng = document.getElementById("lng");			
+			//lat.style.visibility = vis == true ? "visible" : "hidden";
+			//lng.style.visibility = vis == true ? "visible" : "hidden";
+*/
+			
+		}
+		
+		function onUseposition(chkbox){
+			if ( chkbox.checked == true ) {
+				//alert("use position");
+				// hide select zone
+				visibleselectzone(false);
+			}
+			else {
+				//alert("no use position");
+				// show select zone
+				visibleselectzone(true);
+			}
+		}
+    
+		//Setup to allow easy adding more options later
+		function saveOptions() {
+			var ch_use24 = document.getElementById("use24");
+			var ch_useposition = document.getElementById("useposition");
+			var ch_viberate = document.getElementById("viberate");
+			var sel_updatetime = document.getElementById("updatetime");
+			var updatetime_value = sel_updatetime.options[sel_updatetime.selectedIndex].value;
+			var ch_usedust = document.getElementById("usedust");
+
+			var options = {
+				"use24" : ch_use24.checked == true ? 1 : 0,
+				"useposition" : ch_useposition.checked == true ? 1 : 0,
+				"viberate" : ch_viberate.checked == true ? 1 : 0,
+				"updatetime" : Number(updatetime_value),
+				"gridx" : lat,
+				"gridx" : lng,
+				"usedust" : ch_usedust.checked == true ? 1 : 0
+			}
+			return options;
+		};
+
+		var submitButton = document.getElementById("save_button");
+			submitButton.addEventListener("click", function() {
+			  var options = saveOptions();
+			  console.log("Save Config : " + JSON.stringify(options));
+			  var location = "pebblejs://close#" + encodeURIComponent(JSON.stringify(options));
+			  window.location.href = location;
+			}, false);
+			
+		//visibleselectzone(false);
+	
+    </script>	
+</body>
+</html>

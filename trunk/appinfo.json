@@ -1,0 +1,255 @@
+{
+    "appKeys": {
+    		"WEATHER_TEMPERATURE" : 0,
+    		"WEATHER_CONDITIONS" : 1,
+    		"CONFIG_USE24" : 2,
+    		"CONFIG_POSITION" : 3,
+			"CONFIG_VIBRATE" : 4,
+			"CONFIG_UPDATETIME" : 5,
+			"CONFIG_GRIDX" : 6,
+			"CONFIG_GRIDY" : 7,			
+			"USE_POSITION" : 8,
+			"CONFIG_USEDUST" : 9,
+			"USE_USEDUST" : 10,
+			"DUST_CODE" : 11
+    	},
+    "capabilities": [
+        "location",
+        "configurable"
+    ],
+    "companyName": "codesafe@gmail.com",
+    "enableMultiJS": true,
+    "longName": "mojo-watchface",
+    "projectType": "native",
+    "resources": {
+        "media": 
+	[
+	      {
+			"type": "png",
+			"name": "NUM_0",
+			"file": "images/0.png"
+	      },	  
+	      {
+			"type": "png",
+			"name": "NUM_1",
+			"file": "images/1.png"
+	      },
+	      {
+			"type": "png",
+			"name": "NUM_2",
+			"file": "images/2.png"
+	      },
+	      {
+			"type": "png",
+			"name": "NUM_3",
+			"file": "images/3.png"
+	      },
+	      {
+			"type": "png",
+			"name": "NUM_4",
+			"file": "images/4.png"
+	      },
+	      {
+			"type": "png",
+			"name": "NUM_5",
+			"file": "images/5.png"
+	      },
+	      {
+			"type": "png",
+			"name": "NUM_6",
+			"file": "images/6.png"
+	      },
+	      {
+			"type": "png",
+			"name": "NUM_7",
+			"file": "images/7.png"
+	      },
+	      {
+			"type": "png",
+			"name": "NUM_8",
+			"file": "images/8.png"
+	      },
+	      {
+			"type": "png",
+			"name": "NUM_9",
+			"file": "images/9.png"
+	      },
+	      {
+			"type": "png",
+			"name": "COLON",
+			"file": "images/colon.png"
+	      },
+	      {
+			"type": "png",
+			"name": "SUN",
+			"file": "images/sun.png"
+	      },
+	      {
+			"type": "png",
+			"name": "MON",
+			"file": "images/mon.png"
+	      },
+		  {
+			"type": "png",
+			"name": "TUE",
+			"file": "images/tue.png"
+	      },
+	      {
+			"type": "png",
+			"name": "WED",
+			"file": "images/wed.png"
+	      },
+		  	      {
+			"type": "png",
+			"name": "THU",
+			"file": "images/thu.png"
+	      },
+	      {
+			"type": "png",
+			"name": "FRI",
+			"file": "images/fri.png"
+	      },		  
+	      {
+			"type": "png",
+			"name": "SAT",
+			"file": "images/sat.png"
+	      },
+	      {
+			"type": "png",
+			"name": "S0",
+			"file": "images/s0.png"
+	      },
+	      {
+			"type": "png",
+			"name": "S1",
+			"file": "images/s1.png"
+	      },
+	      {
+			"type": "png",
+			"name": "S2",
+			"file": "images/s2.png"
+	      },
+		  	      {
+			"type": "png",
+			"name": "S3",
+			"file": "images/s3.png"
+	      },
+	      {
+			"type": "png",
+			"name": "S4",
+			"file": "images/s4.png"
+	      },
+	      {
+			"type": "png",
+			"name": "S5",
+			"file": "images/s5.png"
+	      },
+	      {
+			"type": "png",
+			"name": "S6",
+			"file": "images/s6.png"
+	      },
+	      {
+			"type": "png",
+			"name": "S7",
+			"file": "images/s7.png"
+	      },
+	      {
+			"type": "png",
+			"name": "S8",
+			"file": "images/s8.png"
+	      },
+	      {
+			"type": "png",
+			"name": "S9",
+			"file": "images/s9.png"
+	      },
+	      {
+			"type": "png",
+			"name": "DOT",
+			"file": "images/dot.png"
+	      },
+	      {
+			"type": "png",
+			"name": "MINUS",
+			"file": "images/minus.png"
+	      },	      
+	      {
+			"type": "png",
+			"name": "SUNNY",
+			"file": "images/sunny.png"
+	      },
+	      {
+			"type": "png",
+			"name": "CLOUDSUN",
+			"file": "images/cloudsun.png"
+	      },
+	      {
+			"type": "png",
+			"name": "CLOUD",
+			"file": "images/cloud.png"
+	      },	      	      
+	      {
+			"type": "png",
+			"name": "RAIN",
+			"file": "images/rain.png"
+	      },
+	      {
+			"type": "png",
+			"name": "SNOW",
+			"file": "images/snow.png"
+	      },
+	      {
+			"type": "png",
+			"name": "PM",
+			"file": "images/pm.png"
+	      },
+	      {
+			"type": "png",
+			"name": "BLUETOOTH",
+			"file": "images/bluetooth.png"
+	      },	      
+	      {
+			"type": "png",
+			"name": "DUST_GOOD",
+			"file": "images/dust_good.png"
+	      },
+	      {
+			"type": "png",
+			"name": "DUST_NORMAL",
+			"file": "images/dust_normal.png"
+	      },
+	      {
+			"type": "png",
+			"name": "DUST_LITTLEBAD",
+			"file": "images/dust_littlebad.png"
+	      },	      
+	      {
+			"type": "png",
+			"name": "DUST_BAD",
+			"file": "images/dust_bad.png"
+	      },
+	      {
+			"type": "png",
+			"name": "DUST_VERYBAD",
+			"file": "images/dust_verybad.png"
+	      },
+	      {
+			"type": "png",
+			"name": "SLASH",
+			"file": "images/slash.png"
+	      }	      
+	]
+    },
+    "sdkVersion": "3",
+    "shortName": "mojo-watchface",
+    "targetPlatforms": [
+		"aplite",
+        "basalt"
+    ],
+    "uuid": "79e31a30-7132-416a-a28d-516edf7dd4d9",
+    "versionLabel": "1.7",
+    "watchapp": {
+        "watchface": true
+    }
+}

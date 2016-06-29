@@ -1,0 +1,7 @@
+
+path source ~/.bash_profile
+
+
+pebble Emulator 실행방법
+
+pebble install --emulator basalt PebbleFace-master.pbw --log
