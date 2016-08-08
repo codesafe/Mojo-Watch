@@ -17,8 +17,8 @@
 #define USE_USEDUST					10	// c -- js
 #define DUST_CODE					11
 
-#define VIBRATE_BLUETOOTH			12
-#define SCREENTYPE					13
+#define CONFIG_VIBRATE_BLUETOOTH			12
+#define CONFIG_SCREENTYPE					13
 
 bool bluetoothconnected = true;
 bool use24h = false;				// 24 시간제
@@ -393,19 +393,19 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context)
 				forceupdate = true;				
 			break;
 			
-			case VIBRATE_BLUETOOTH :
+			case CONFIG_VIBRATE_BLUETOOTH :
 				APP_LOG(APP_LOG_LEVEL_ERROR, "VIBRATE_BLUETOOTH");
 				int _usevibratebluetoothdisconnect = (int)t->value->int32;
 				usevibratebluetoothdisconnect = _usevibratebluetoothdisconnect == 0 ? false : true;				
-				persist_write_bool(VIBRATE_BLUETOOTH, usevibratebluetoothdisconnect);
+				persist_write_bool(CONFIG_VIBRATE_BLUETOOTH, usevibratebluetoothdisconnect);
 				forceupdate = true;							
 			break;
 			
-			case SCREENTYPE :
+			case CONFIG_SCREENTYPE :
 				APP_LOG(APP_LOG_LEVEL_ERROR, "SCREENTYPE");
 				int _useblackscreen = (int)t->value->int32;
 				useblackscreen = _useblackscreen == 0 ? false : true;				
-				persist_write_bool(SCREENTYPE, useblackscreen);
+				persist_write_bool(CONFIG_SCREENTYPE, useblackscreen);
 				forceupdate = true;							
 			break;			
             
@@ -1008,11 +1008,11 @@ void init_watch(void)
 	if (persist_exists(DUST_CODE))
 		dustcode = persist_read_int(DUST_CODE);
 
-	if (persist_exists(VIBRATE_BLUETOOTH))
-		usevibratebluetoothdisconnect = persist_read_int(VIBRATE_BLUETOOTH);
+	if (persist_exists(CONFIG_VIBRATE_BLUETOOTH))
+		usevibratebluetoothdisconnect = persist_read_int(CONFIG_VIBRATE_BLUETOOTH);
 
-	if (persist_exists(SCREENTYPE))
-		useblackscreen = persist_read_int(SCREENTYPE);
+	if (persist_exists(CONFIG_SCREENTYPE))
+		useblackscreen = persist_read_int(CONFIG_SCREENTYPE);
 		
 //	if (persist_exists(WEATHER_FIRSTUPDATE))
 //		firstweatherupdate = persist_read_bool(WEATHER_FIRSTUPDATE);

@@ -369,7 +369,9 @@ Pebble.addEventListener('webviewclosed',
 				'CONFIG_UPDATETIME': configuration.updatetime,
 				'CONFIG_GRIDX': configuration.gridx,
 				'CONFIG_GRIDY': configuration.gridy,
-				'CONFIG_USEDUST': configuration.usedust
+				'CONFIG_USEDUST': configuration.usedust,
+				'CONFIG_VIBRATE_BLUETOOTH': configuration.viberatebluetooth,
+				'CONFIG_SCREENTYPE': configuration.blackscreen
 			},
 			function(e) {
 				console.log('Sending settings data...');

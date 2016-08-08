@@ -12,8 +12,8 @@
 			"CONFIG_USEDUST" : 9,
 			"USE_USEDUST" : 10,
 			"DUST_CODE" : 11,
-			"VIBRATE_BLUETOOTH" : 12,
-			"SCREENTYPE" : 13
+			"CONFIG_VIBRATE_BLUETOOTH" : 12,
+			"CONFIG_SCREENTYPE" : 13
     	},
     "capabilities": [
         "location",
@@ -250,7 +250,7 @@
         "basalt"
     ],
     "uuid": "79e31a30-7132-416a-a28d-516edf7dd4d9",
-    "versionLabel": "1.7",
+    "versionLabel": "1.8",
     "watchapp": {
         "watchface": true
     }

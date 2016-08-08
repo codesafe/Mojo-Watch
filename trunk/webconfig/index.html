@@ -24,6 +24,8 @@
 <p><input id="usedust" required="required" type="checkbox" value="false" />&nbsp;미세먼지 정보 사용</p>
 <p><input id="useposition" required="required" type="checkbox" onclick="onUseposition(this)" />&nbsp;위치 기반 날씨 사용</p>
 <p><input id="viberate" required="required" type="checkbox" />&nbsp;날씨 업데이트 시 진동</p>
+<p><input id="viberatebluetooth" required="required" type="checkbox" />&nbsp;블루투스 끊길 시 진동</p>
+<p><input id="blackscreen" required="required" type="checkbox" />&nbsp;검은색 배경 사용</p>
 <p>날씨 업데이트 주기</p>
 <p>
 	<select id='updatetime' style="width: 180px;">
@@ -129,6 +131,8 @@
 			var sel_updatetime = document.getElementById("updatetime");
 			var updatetime_value = sel_updatetime.options[sel_updatetime.selectedIndex].value;
 			var ch_usedust = document.getElementById("usedust");
+			var ch_viberatebluetooth = document.getElementById("viberatebluetooth");
+			var ch_blackscreen = document.getElementById("blackscreen");
 
 			var options = {
 				"use24" : ch_use24.checked == true ? 1 : 0,
@@ -137,7 +141,9 @@
 				"updatetime" : Number(updatetime_value),
 				"gridx" : lat,
 				"gridx" : lng,
-				"usedust" : ch_usedust.checked == true ? 1 : 0
+				"usedust" : ch_usedust.checked == true ? 1 : 0,
+				"viberatebluetooth" : ch_viberatebluetooth.checked == true ? 1 : 0,
+				"blackscreen" : ch_blackscreen.checked == true ? 1 : 0
 			}
 			return options;
 		};
