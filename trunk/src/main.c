@@ -17,12 +17,17 @@
 #define USE_USEDUST					10	// c -- js
 #define DUST_CODE					11
 
+#define VIBRATE_BLUETOOTH			12
+#define SCREENTYPE					13
+
 bool bluetoothconnected = true;
 bool use24h = false;				// 24 시간제
-bool userposition = true;		// 위치 정보 사용
+bool userposition = true;			// 위치 정보 사용
 bool usevibrate = false;			// 진동사용
-//bool usedust = false;			// 미세먼지 사용?
 bool usedust = true;
+bool useblackscreen = false;		// 검정배경
+bool usevibratebluetoothdisconnect = false;
+
 int weather_update_time = 3;			// 날씨 업데이트 시간
 int gridx = 0;
 int gridy = 0;
@@ -387,6 +392,22 @@ void inbox_received_callback(DictionaryIterator *iterator, void *context)
 				persist_write_bool(CONFIG_USEDUST, usedust);
 				forceupdate = true;				
 			break;
+			
+			case VIBRATE_BLUETOOTH :
+				APP_LOG(APP_LOG_LEVEL_ERROR, "VIBRATE_BLUETOOTH");
+				int _usevibratebluetoothdisconnect = (int)t->value->int32;
+				usevibratebluetoothdisconnect = _usevibratebluetoothdisconnect == 0 ? false : true;				
+				persist_write_bool(VIBRATE_BLUETOOTH, usevibratebluetoothdisconnect);
+				forceupdate = true;							
+			break;
+			
+			case SCREENTYPE :
+				APP_LOG(APP_LOG_LEVEL_ERROR, "SCREENTYPE");
+				int _useblackscreen = (int)t->value->int32;
+				useblackscreen = _useblackscreen == 0 ? false : true;				
+				persist_write_bool(SCREENTYPE, useblackscreen);
+				forceupdate = true;							
+			break;			
             
             default:
 				APP_LOG(APP_LOG_LEVEL_ERROR, "Key %d not recognized!", (int)t->key);
@@ -836,15 +857,31 @@ void initbackground()
 
 void draw_layer(Layer *layer, GContext *ctx)
 {
-	graphics_context_set_fill_color(ctx, GColorFromRGB(0, 0, 170));
-	GRect rect_bounds = GRect(0, 0, 144, 168);
+	if( useblackscreen )
+	{
+		graphics_context_set_fill_color(ctx, GColorFromRGB(0, 0, 0));
+		GRect rect_bounds = GRect(0, 0, 144, 168);
 
-	int corner_radius = 0;
-	graphics_fill_rect(ctx, rect_bounds, corner_radius, GCornersAll);
-	
-	GRect crect = GRect(48, 0, 48, 168);
-	graphics_context_set_fill_color(ctx, GColorFromRGB(255, 0, 0));
-	graphics_fill_rect(ctx, crect, 0, GCornersAll);
+		int corner_radius = 0;
+		graphics_fill_rect(ctx, rect_bounds, corner_radius, GCornersAll);
+		/*
+		GRect crect = GRect(48, 0, 48, 168);
+		graphics_context_set_fill_color(ctx, GColorFromRGB(255, 0, 0));
+		graphics_fill_rect(ctx, crect, 0, GCornersAll);	
+		*/
+	}
+	else
+	{
+		graphics_context_set_fill_color(ctx, GColorFromRGB(0, 0, 170));
+		GRect rect_bounds = GRect(0, 0, 144, 168);
+
+		int corner_radius = 0;
+		graphics_fill_rect(ctx, rect_bounds, corner_radius, GCornersAll);
+		
+		GRect crect = GRect(48, 0, 48, 168);
+		graphics_context_set_fill_color(ctx, GColorFromRGB(255, 0, 0));
+		graphics_fill_rect(ctx, crect, 0, GCornersAll);	
+	}
 	
 	// battery
 	//updatebatteryrect(ctx);
@@ -867,7 +904,11 @@ void updatebluetooth()
     releasesprite(bluetooth_spr, 1);
     
     if(bluetoothconnected == false)
+	{
 		rendersprite(20, 92, &bluetooth_spr[0], RESOURCE_ID_BLUETOOTH);
+		if(usevibratebluetoothdisconnect)			
+			custom_vibrate(1);
+	}
 }
 
 void bluetooth_handler(bool enable)
@@ -967,6 +1008,12 @@ void init_watch(void)
 	if (persist_exists(DUST_CODE))
 		dustcode = persist_read_int(DUST_CODE);
 
+	if (persist_exists(VIBRATE_BLUETOOTH))
+		usevibratebluetoothdisconnect = persist_read_int(VIBRATE_BLUETOOTH);
+
+	if (persist_exists(SCREENTYPE))
+		useblackscreen = persist_read_int(SCREENTYPE);
+		
 //	if (persist_exists(WEATHER_FIRSTUPDATE))
 //		firstweatherupdate = persist_read_bool(WEATHER_FIRSTUPDATE);
 

@@ -11,7 +11,9 @@
 			"USE_POSITION" : 8,
 			"CONFIG_USEDUST" : 9,
 			"USE_USEDUST" : 10,
-			"DUST_CODE" : 11
+			"DUST_CODE" : 11,
+			"VIBRATE_BLUETOOTH" : 12,
+			"SCREENTYPE" : 13
     	},
     "capabilities": [
         "location",
