@@ -103,6 +103,9 @@ void updateday(struct tm* t);
 
 void custom_vibrate(int i)
 {
+	
+	APP_LOG(APP_LOG_LEVEL_DEBUG, "VIBRATE %d", i);
+	
 	if( i == 0 )
 	{
 		vibes_short_pulse();    
@@ -1009,10 +1012,10 @@ void init_watch(void)
 		dustcode = persist_read_int(DUST_CODE);
 
 	if (persist_exists(CONFIG_VIBRATE_BLUETOOTH))
-		usevibratebluetoothdisconnect = persist_read_int(CONFIG_VIBRATE_BLUETOOTH);
+		usevibratebluetoothdisconnect = persist_read_bool(CONFIG_VIBRATE_BLUETOOTH);
 
 	if (persist_exists(CONFIG_SCREENTYPE))
-		useblackscreen = persist_read_int(CONFIG_SCREENTYPE);
+		useblackscreen = persist_read_bool(CONFIG_SCREENTYPE);
 		
 //	if (persist_exists(WEATHER_FIRSTUPDATE))
 //		firstweatherupdate = persist_read_bool(WEATHER_FIRSTUPDATE);
