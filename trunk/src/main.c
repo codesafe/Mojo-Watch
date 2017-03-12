@@ -99,6 +99,7 @@ int dustindex[5] =
 void update_time(struct tm* t);
 void updateday(struct tm* t);
 
+
 //////////////////////////////////////////////////////////////////////////////
 
 void custom_vibrate(int i)
@@ -139,7 +140,7 @@ typedef struct
 #define MAXTEMP_SPR     5
 // icon + 숫자 + (dot)아이콘
 _SPR	 temperature_spr[MAXTEMP_SPR];
-
+_SPR	 sendpacket_spr[1];
 
 char *translate_error(AppMessageResult result) {
   	switch (result) {
@@ -294,12 +295,24 @@ void getweather()
     // Send the message!
     res = app_message_outbox_send();
     APP_LOG(APP_LOG_LEVEL_DEBUG, "AppMsgSend: %s", translate_error(res));
+    
+	// render sendpacket
+	if(sendpacket_spr[0].bmp == NULL && sendpacket_spr[0].layer == NULL)
+	rendersprite(45, 92, &sendpacket_spr[0], RESOURCE_ID_PACKET);
+
 }
 
 
 // 응답 도착
 void inbox_received_callback(DictionaryIterator *iterator, void *context) 
 {
+	if(sendpacket_spr[0].bmp != NULL && sendpacket_spr[0].layer != NULL)
+	{
+		releasesprite(sendpacket_spr, 1);
+		sendpacket_spr[0].bmp = NULL;
+		sendpacket_spr[0].layer = NULL;
+	}
+	
 	bool forceupdate = false;
 	int prev_weather_code = weather_code;
 	
@@ -491,12 +504,18 @@ void updateweather(struct tm* t)
 //    if( t->tm_min == 0 && (t->tm_hour == 0 || t->tm_hour == 3 || t->tm_hour == 6 || t->tm_hour == 9 || 
 //		t->tm_hour == 12 || t->tm_hour == 15 || t->tm_hour == 18 || t->tm_hour == 21 ) )
 
+	if( t->tm_min == 0 || t->tm_min == 30) 
+    {
+		getweather();
+    }
+
+/*
 	if( t->tm_min == 0 ) 
     {
 		if( t->tm_hour % weather_update_time == 0 )
 			getweather();
     }
-    
+*/    
     if( firstweatherupdate == false )
     {
 		// 최초 1회 업데이트
@@ -923,6 +942,12 @@ void bluetooth_handler(bool enable)
 	updatebluetooth();
 }
 
+void initsendpacket()
+{
+	sendpacket_spr[0].bmp = NULL;
+	sendpacket_spr[0].layer = NULL;
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void init_watch(void) 
@@ -944,11 +969,14 @@ void init_watch(void)
     initweather();    
     initbattery();
     initdate();
+    initsendpacket();
 
 	// BlueTooth
     connection_service_subscribe((ConnectionHandlers) {
     .pebble_app_connection_handler = bluetooth_handler
 	});
+
+    //tick_timer_service_subscribe(SECOND_UNIT, callback_second_tick);
 
 	// 분단위 update callback등록 (callback_minute_tick 함수 call)
     tick_timer_service_subscribe(MINUTE_UNIT, callback_minute_tick);
